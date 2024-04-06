@@ -17,7 +17,7 @@ def get_yaml(file):
     yaml_data = yaml.load(stream=crf, Loader=yaml.FullLoader)
     return yaml_data
 
-config = get_yaml("./config.yaml")
+config = get_yaml("../data/config.yaml")
 url_record = "https://music.163.com/weapi/v1/play/record?csrf_token="+config["csrf"]
 
 header = {
