@@ -6,6 +6,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 app = Flask(__name__)
 
+@app.route("/")
+def index():
+    return "Bruh."
+
 def get_yaml(file):
     rf = open(file, mode='r', encoding='utf-8')
     crf = rf.read()
