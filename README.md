@@ -1,28 +1,33 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+## NeteasePersonalSonglist (NPS)
 
-# Flask + Vercel
+A Serverless Python Script that will enable you to generate a poster including the songs that you listen in the week / all time.
 
-This example shows how to use Flask 3 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
+### Configuration
 
-## Demo
-
-https://flask-python-template.vercel.app/
-
-## How it Works
-
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
-
-## Running Locally
-
-```bash
-npm i -g vercel
-vercel dev
+```yaml
+ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" # which presumably you could change randomly.
+esk: "In your request"
+params: 'In your request'
+csrf: "In your request"
+id: "Your Netease Music ID"
+cookie: "In your request"
 ```
 
-Your Flask application is now available at `http://localhost:3000`.
+### Usage & Example
 
-## One-Click Deploy
+https://wyy.oblivionocean.top/week_poster.png
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+https://wyy.oblivionocean.top/all_time_poster.png
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+```markdown
+[Week Poster](https://wyy.oblivionocean.top/week_poster.png)
+[All Time Poster](https://wyy.oblivionocean.top/all_time_poster.png)
+```
+
+[Week Poster](https://wyy.oblivionocean.top/week_poster.png)
+
+[All Time Poster](https://wyy.oblivionocean.top/all_time_poster.png)
+
+### Deploy it on Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLafcadia%2FNPS)
