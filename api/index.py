@@ -3,7 +3,9 @@ import requests
 import yaml
 import io
 from PIL import Image, ImageDraw, ImageFont
+from os.path import dirname, abspath, join
 
+dir = dirname(abspath(__file__))
 app = Flask(__name__)
 
 @app.route("/")
@@ -60,10 +62,10 @@ def drawer(ds, name, num = 0):
 
     # 创建一个可以在图像上绘图的对象
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype('../static/Deng.ttf', 60)
+    font = ImageFont.truetype(join(dir, "..", "static", "Deng.ttf"), 60)
     text = "本周网易云个人听歌排行" if num else "网易云个人历史听歌排行"
     draw.text((10, 10), text, fill=(0, 0, 0), font=font)
-    font = ImageFont.truetype('../static/Deng.ttf', 20)
+    font = ImageFont.truetype(join(dir, "..", "static", "Deng.ttf"), 20)
     for i in range(len(ds[num])):
         text = "    ".join([ds[num][i][0],ds[num][i][1],str(ds[num][i][2])])
         draw.text((10, i*30+80), text, fill=(0, 0, 0), font=font)
