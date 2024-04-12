@@ -7,15 +7,15 @@ from os.path import dirname, abspath, join
 
 dir = dirname(abspath(__file__))
 
-def get_yaml(file):
+def get_yaml():
     global dir
-    with open(join(dir, "..", "static", "Deng.ttf"), mode='r', encoding='utf-8') as file:
+    with open(join(dir, "..", "config.yaml"), mode='r') as file:
         crf = file.read()
     yaml_data = yaml.load(stream=crf, Loader=yaml.FullLoader)
     return yaml_data
 
 app = Flask(__name__)
-config = get_yaml("../data/config.yaml")
+config = get_yaml()
 
 @app.route("/")
 def index():
