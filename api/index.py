@@ -1,4 +1,4 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, request, jsonify
 import requests
 import yaml
 import io
@@ -21,21 +21,18 @@ config = get_yaml()
 def index():
     return "Bruh."
 
-url_record = "https://music.163.com/weapi/v1/play/record?csrf_token="+config["csrf"]
-
-header = {
-    'User-Agent': config["ua"],
-    'Cookie': config["cookie"],
-    'Origin': "https://music.163.com",
-    'Referer': "https://music.163.com/user/songs/rank?id=" + config["id"],
-}
-
-def get_record(url):
+def get_record(id, csrf):
+    header = {
+        'User-Agent': config["ua"],
+        'Cookie': config["cookie"],
+        'Origin': "https://music.163.com",
+        'Referer': "https://music.163.com/user/songs/rank?id=" + id,
+        }
     params = {
         'params': config["params"],
         'encSecKey': config["esk"]
     }
-    response = requests.post(url, headers=header, params=params)
+    response = requests.post("https://music.163.com/weapi/v1/play/record?csrf_token=" + csrf, headers=header, params=params)
     return response.json()
 
 def parse_record(data):
@@ -56,14 +53,12 @@ def parse_record(data):
     return [all_time_songs_list, one_week_song_list]
 
 def drawer(ds, name, num = 0):
-    # 创建一个新的白色图像
     width, height = 1200, len(ds[num])*30+80
     image = Image.new('RGB', (width, height), (255, 255, 255))
 
-    # 创建一个可以在图像上绘图的对象
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype(join(dir, "..", "static", "Deng.ttf"), 60)
-    text = "本周网易云个人听歌排行" if num else "网易云个人历史听歌排行"
+    text = "Favourite Songs of the Week" if num else "Favourite Songs of All Time"
     draw.text((10, 10), text, fill=(0, 0, 0), font=font)
     font = ImageFont.truetype(join(dir, "..", "static", "Deng.ttf"), 20)
     for i in range(len(ds[num])):
@@ -71,19 +66,23 @@ def drawer(ds, name, num = 0):
         draw.text((10, i*30+80), text, fill=(0, 0, 0), font=font)
     image.save(name, format="PNG")
 
-@app.route('/week_poster.png')
+@app.route('/week')
 def week_post():
     week = io.BytesIO()
-    json_record = get_record(url_record)
+    id = request.args.get('id')
+    csrf = request.args.get('csrf')
+    json_record = get_record(id, csrf=csrf)
     dataset = parse_record(json_record)
     drawn = drawer(ds=dataset, name = week, num = 1)
     week.seek(0)
     return send_file(week, mimetype="image/png")
 
-@app.route('/all_time_post.png')
+@app.route('/alltime')
 def all_time_post():
     alltime = io.BytesIO()
-    json_record = get_record(url_record)
+    id = request.args.get('id')
+    csrf = request.args.get('csrf')
+    json_record = get_record(id, csrf=csrf)
     dataset = parse_record(json_record)
     drawn2 = drawer(ds=dataset, name = alltime, num = 0)
     alltime.seek(0)
